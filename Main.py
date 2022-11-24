@@ -11,9 +11,12 @@ from RFID import RFID
 # GPIO Mode (BOARD / BCM)
 GPIO.setmode(GPIO.BCM)
 
-# Sensor
-sensor = SensorUS(18, 24)
-sensor.setup()
+# Sensores - # Dar nombres entrada/salida
+sensor1 = SensorUS(18, 24)
+sensor1.setup()
+
+sensor2 = SensorUS() # Check valores de pines
+# sensor2.setup() # Setup no acepta valores de pines por default
 
 # RFID
 lector = RFID()
@@ -23,11 +26,21 @@ try:
 
   while True:
 
-    # Obtener distancia
-    distancia = sensor.getDistance()
+    # Obtener distancias
+    distancia1 = sensor1.getDistance()
+    distancia2 = sensor2.getDistance()
 
-    # Si la distancia es igual o menor a 5 cm
-    if distancia <= 5.0:
+    # Para sensor 1
+    if distancia1 <= 5.0:
+
+      # Leer tarjeta
+      lector.read()
+
+      # Reset distancia 2
+      distancia2 = 100.0
+
+    # Para sensor 2
+    if distancia2 <= 5.0:
 
       # Leer tarjeta
       lector.read()

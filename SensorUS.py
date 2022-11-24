@@ -31,30 +31,36 @@ class SensorUS:
     Metodo para calcular distancia
     """
 
-    # Set trigger to high
-    GPIO.output(self.__trigger, True)
+    # Si los valores de pines son adecuados
+    if (self.__trigger > 0 and self.__echo > 0):
 
-    # Set trigger after 0.01ms to low
-    time.sleep(0.00001)
-    GPIO.output(self.__trigger, False)
+      # Set trigger to high
+      GPIO.output(self.__trigger, True)
 
-    StartTime = time.time()
-    StopTime = time.time()
+      # Set trigger after 0.01ms to low
+      time.sleep(0.00001)
+      GPIO.output(self.__trigger, False)
 
-    # Save StartTime
-    while GPIO.input(self.__echo) == 0:
       StartTime = time.time()
-
-    # Set time of arrival
-    while GPIO.input(self.__echo) == 1:
       StopTime = time.time()
 
-    # Time difference between start and arrival
-    TimeElapsed = StopTime - StartTime
+      # Save StartTime
+      while GPIO.input(self.__echo) == 0:
+        StartTime = time.time()
 
-    # multiply with the sonic speed (34300 cm/s)
-    # and divide by 2, because there and back
-    distance = (TimeElapsed * 34300) / 2
+      # Set time of arrival
+      while GPIO.input(self.__echo) == 1:
+        StopTime = time.time()
+
+      # Time difference between start and arrival
+      TimeElapsed = StopTime - StartTime
+
+      # multiply with the sonic speed (34300 cm/s)
+      # and divide by 2, because there and back
+      distance = (TimeElapsed * 34300) / 2
+
+    else:
+      distance = 100.0
 
     return distance
 
