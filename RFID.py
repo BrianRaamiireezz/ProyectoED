@@ -18,7 +18,7 @@ class RFID:
     """
     self.__reader = MFRC522.MFRC522()
 
-  def uidToString(uid):
+  def uidToString(self, uid):
 
     stringUID = ""
 
@@ -28,6 +28,8 @@ class RFID:
     return stringUID
 
   def read(self):
+
+    print("Detectando tarjeta...")
 
     leyendo = True
 

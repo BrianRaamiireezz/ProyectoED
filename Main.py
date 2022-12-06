@@ -28,7 +28,9 @@ try:
 
     # Obtener distancias
     distancia1 = sensor1.getDistance()
+    print ("Distancia 1 = %.1f cm" % distancia1)
     distancia2 = sensor2.getDistance()
+    print ("Distancia 2 = %.1f cm" % distancia2)
 
     # Para sensor 1
     if distancia1 <= 5.0:
